@@ -10,11 +10,11 @@ class Admin extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'Admin';
+    // Sesuaikan dengan nama tabel di migrasi (huruf kecil semua)
+    protected $table = 'admin'; 
     protected $primaryKey = 'id_Admin';
     public $timestamps = true;
 
-    // Gunakan jika id_Admin AUTO_INCREMENT (paling umum)
     public $incrementing = true;
     protected $keyType = 'int';
 

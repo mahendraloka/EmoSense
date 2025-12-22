@@ -22,7 +22,7 @@ class AdminSeeder extends Seeder
             [
                 'nama'       => 'Duta Admin', // Sesuai dengan gambar
                 'email'      => 'admin@gmail.com', // Sesuai dengan gambar
-                'password'   => '$2y$12$TXTTwuuIVGnXTRvte/45DuJmjKKxsvf5w0zMIJi7dmQLr4xhcARVK', // Hash dari admin123
+                'password'   => 'admin123',
                 'created_at' => '2025-12-08 18:45:50', // Sesuai timestamp di gambar
                 'updated_at' => '2025-12-20 22:46:28', // Sesuai timestamp di gambar
             ]
