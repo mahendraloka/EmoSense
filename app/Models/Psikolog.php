@@ -12,7 +12,7 @@ class Psikolog extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'Psikolog';
+    protected $table = 'psikolog';
     protected $primaryKey = 'id_Psikolog';
     public $incrementing = false;
     protected $keyType = 'string';
