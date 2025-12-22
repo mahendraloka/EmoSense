@@ -167,14 +167,27 @@
                             title: 'Berhasil!',
                             html: `
                                 <p class="mb-3 text-sm text-gray-500">Salin password baru untuk <b>${nama}</b>:</p>
-                                <div class="bg-gray-100 p-4 rounded-xl font-mono text-2xl border-2 border-dashed border-indigo-300 select-all cursor-pointer">
-                                    ${data.password}
-                                </div>
-                            `,
+                                <div class="bg-gray-100 p-4 rounded-xl font-mono text-2xl border-2 border-dashed border-indigo-300 select-all cursor-pointer">${data.password}</div>
+                            `, // PENTING: Jangan beri spasi/enter di dalam tag div di atas
                             icon: 'success',
-                            confirmButtonText: 'Salin & Tutup'
+                            confirmButtonText: 'Salin & Tutup',
+                            customClass: {
+                                confirmButton: 'px-6 py-3 rounded-xl'
+                            }
                         }).then(() => {
-                            navigator.clipboard.writeText(data.password);
+                            // Pastikan menggunakan .trim() untuk membuang karakter kosong yang tidak sengaja terbawa
+                            const cleanPassword = data.password.toString().trim();
+                            navigator.clipboard.writeText(cleanPassword);
+                            
+                            // Opsional: Notifikasi kecil bahwa teks berhasil disalin
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Password disalin ke clipboard',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
                         });
                     }
                 })
