@@ -130,7 +130,6 @@
 
 @section('scripts')
 <script>
-    // PENTING: Gunakan window.namaFungsi agar terbaca oleh atribut onclick di HTML
     window.resetPassword = function(url, nama) {
         Swal.fire({
             title: 'Reset Password?',
@@ -152,7 +151,7 @@
                 fetch(url, {
                     method: 'POST',
                     headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     }
@@ -163,31 +162,20 @@
                 })
                 .then(data => {
                     if(data.status === 'success') {
+                        const newPassword = data.password.toString().trim();
+                        
                         Swal.fire({
                             title: 'Berhasil!',
                             html: `
                                 <p class="mb-3 text-sm text-gray-500">Salin password baru untuk <b>${nama}</b>:</p>
-                                <div class="bg-gray-100 p-4 rounded-xl font-mono text-2xl border-2 border-dashed border-indigo-300 select-all cursor-pointer">${data.password}</div>
-                            `, // PENTING: Jangan beri spasi/enter di dalam tag div di atas
+                                <div id="pwd-box" class="bg-gray-100 p-4 rounded-xl font-mono text-2xl border-2 border-dashed border-indigo-300 cursor-pointer select-all">${newPassword}</div>
+                            `,
                             icon: 'success',
                             confirmButtonText: 'Salin & Tutup',
-                            customClass: {
-                                confirmButton: 'px-6 py-3 rounded-xl'
-                            }
+                            confirmButtonColor: '#4f46e5',
                         }).then(() => {
-                            // Pastikan menggunakan .trim() untuk membuang karakter kosong yang tidak sengaja terbawa
-                            const cleanPassword = data.password.toString().trim();
-                            navigator.clipboard.writeText(cleanPassword);
-                            
-                            // Opsional: Notifikasi kecil bahwa teks berhasil disalin
-                            Swal.fire({
-                                toast: true,
-                                position: 'top-end',
-                                icon: 'success',
-                                title: 'Password disalin ke clipboard',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
+                            // Fungsi Salin dengan Fallback (Dukungan Hosting Non-HTTPS)
+                            copyToClipboard(newPassword);
                         });
                     }
                 })
@@ -195,6 +183,43 @@
                     Swal.fire('Error', err.message, 'error');
                 });
             }
+        });
+    }
+
+    // Fungsi helper salin teks (Anti-Gagal di Hosting)
+    function copyToClipboard(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast();
+            });
+        } else {
+            // Fallback untuk HTTP/Hosting tanpa SSL
+            let textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                console.error('Gagal menyalin', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    }
+
+    function showToast() {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: 'Password berhasil disalin',
+            showConfirmButton: false,
+            timer: 1500
         });
     }
 
