@@ -26,7 +26,7 @@ class AdminController extends Controller
     // Dashboard
     public function dashboard()
     {
-        return view('admin.dashboard', [
+        return view('admin/dashboard', [
             'totalMahasiswa' => Mahasiswa::count(),
             'totalAdmin' => Admin::count(),
             'totalPsikolog' => Psikolog::count(),
