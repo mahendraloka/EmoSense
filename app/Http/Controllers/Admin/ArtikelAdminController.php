@@ -61,7 +61,7 @@ class ArtikelAdminController extends Controller
             'tanggal_upload'   => now()->format('Y-m-d'),
         ];
 
-        // ✅ SIMPAN GAMBAR JIKA ADA
+        // SIMPAN GAMBAR JIKA ADA
         if ($request->hasFile('gambar')) {
             $data['gambar'] = $request->file('gambar')
                                       ->store('artikel', 'public');
@@ -97,15 +97,15 @@ class ArtikelAdminController extends Controller
             'kategori' => $request->kategori,
         ];
 
-        // ✅ JIKA GANTI GAMBAR
+        // JIKA GANTI GAMBAR
         if ($request->hasFile('gambar')) {
 
-            // ⛔ hapus gambar lama
+            // hapus gambar lama
             if ($artikel->gambar && Storage::disk('public')->exists($artikel->gambar)) {
                 Storage::disk('public')->delete($artikel->gambar);
             }
 
-            // ✅ simpan gambar baru
+            // simpan gambar baru
             $data['gambar'] = $request->file('gambar')
                                       ->store('artikel', 'public');
         }
@@ -121,7 +121,7 @@ class ArtikelAdminController extends Controller
     {
         $artikel = Artikel::findOrFail($id);
 
-        // ⛔ hapus gambar jika ada
+        // hapus gambar jika ada
         if ($artikel->gambar && Storage::disk('public')->exists($artikel->gambar)) {
             Storage::disk('public')->delete($artikel->gambar);
         }

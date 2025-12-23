@@ -158,23 +158,23 @@ function previewImage(event) {
 function resetFormArtikel() {
     const form = document.getElementById('form-create');
     
-    // 1. Reset Input Standar (Judul & Kategori)
+    // Reset Input Standar (Judul & Kategori)
     form.reset();
 
-    // 2. Reset Trix Editor
+    // Reset Trix Editor
     const trixEditor = document.querySelector("trix-editor");
     if (trixEditor) {
         trixEditor.editor.loadHTML(""); 
     }
 
-    // 3. Reset Pratinjau Gambar
+    // Reset Pratinjau Gambar
     const img = document.getElementById('preview');
     const placeholder = document.getElementById('placeholder-icon');
     img.src = "";
     img.classList.add('hidden');
     placeholder.classList.remove('hidden');
 
-    // 4. Notifikasi Sukses Reset (Opsional)
+    // Notifikasi Sukses Reset
     Swal.fire({
         toast: true,
         position: 'top-end',

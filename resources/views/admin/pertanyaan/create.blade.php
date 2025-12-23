@@ -73,9 +73,7 @@
 </div>
 
 <script>
-/**
- * Konfirmasi sebelum menghapus semua isi form
- */
+// Konfirmasi sebelum menghapus semua isi form
 function confirmReset() {
     Swal.fire({
         title: 'Kosongkan input?',
@@ -94,9 +92,7 @@ function confirmReset() {
     })
 }
 
-/**
- * Fungsi Reset Form Manual (Mengosongkan old data)
- */
+// Fungsi Reset Form Manual (Mengosongkan old data)
 function resetFormPertanyaan() {
     const form = document.getElementById('pertanyaanForm');
     

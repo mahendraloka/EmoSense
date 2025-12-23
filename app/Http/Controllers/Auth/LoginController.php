@@ -13,36 +13,6 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    // public function login(Request $request)
-    // {
-    //     $request->validate([
-    //         'email'    => 'required',
-    //         'password' => 'required',
-    //     ]);
-
-    //     if (Auth::guard('admin')->attempt([
-    //         'email' => $request->email,
-    //         'password' => $request->password
-    //     ])) {
-    //         return redirect('/admin/dashboard');
-    //     }
-        
-    //     if (Auth::guard('psikolog')->attempt([
-    //         'email' => $request->email,
-    //         'password' => $request->password
-    //     ])) {
-    //         return redirect('/psikolog/dashboard');
-    //     }
-        
-    //     if (Auth::guard('mahasiswa')->attempt([
-    //         'email' => $request->email,
-    //         'password' => $request->password
-    //     ])) {
-    //         return redirect('/mahasiswa/home');
-    //     }        
-
-    //     return back()->withErrors(['email' => 'Email atau password salah']);
-    // }
     public function login(Request $request)
     {
         $request->validate([

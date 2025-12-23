@@ -87,7 +87,6 @@
                             </td>
                         @endif
                         
-                        {{-- PERBAIKAN AKSI: Tombol berjejer langsung (Identik dengan DASS-21) --}}
                         <td class="px-6 py-5">
                             <div class="flex justify-center items-center gap-2">
                                 {{-- Tombol Edit --}}

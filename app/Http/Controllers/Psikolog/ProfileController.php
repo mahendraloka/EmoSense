@@ -36,7 +36,7 @@ class ProfileController extends Controller
         $psikolog->nomor_hp     = $validated['nomor_hp'];
         $psikolog->spesialisasi = $validated['spesialisasi'];
 
-        // UPDATE PASSWORD (OPSIONAL)
+        // UPDATE PASSWORD
         if (!empty($validated['password'])) {
             $psikolog->password = Hash::make($validated['password']);
         }

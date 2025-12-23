@@ -16,7 +16,6 @@
     </div>
 
     <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-        {{-- ID form ditambahkan agar pemanggilan di JS lebih presisi --}}
         <form id="userForm" action="{{ route('admin.users.store', $type) }}" method="POST" enctype="multipart/form-data" class="divide-y divide-gray-50">
             @csrf
             
@@ -109,9 +108,7 @@
 </div>
 
 <script>
-/**
- * Fungsi untuk Preview Foto
- */
+// Fungsi untuk Preview Foto
 function previewFoto(event) {
     const file = event.target.files[0];
     if (file) {
@@ -124,9 +121,7 @@ function previewFoto(event) {
     }
 }
 
-/**
- * Fungsi Konfirmasi sebelum Reset
- */
+// Fungsi Konfirmasi sebelum Reset
 function confirmReset() {
     Swal.fire({
         title: 'Kosongkan form?',
@@ -144,9 +139,7 @@ function confirmReset() {
     })
 }
 
-/**
- * Fungsi Inti Reset Form
- */
+// Fungsi Inti Reset Form
 function resetMyForm() {
     const form = document.getElementById('userForm');
     

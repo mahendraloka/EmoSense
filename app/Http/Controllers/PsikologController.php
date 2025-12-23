@@ -19,9 +19,7 @@ class PsikologController extends Controller
 
     public function dashboard()
     {
-        // =====================
         // STATISTIK RINGKAS
-        // =====================
         $totalMahasiswa = Mahasiswa::count();
 
         // Ambil hasil DASS-21 TERAKHIR tiap mahasiswa
@@ -48,9 +46,7 @@ class PsikologController extends Controller
 
         $totalAssessmentHariIni = HasilDASS21::whereDate('tanggal_test', now())->count();
 
-        // =====================
         // CHART ATAS
-        // =====================
         // Distribusi Tingkat Depresi
         // (1 mahasiswa = 1 data karena pakai hasil terakhir)
         $dassDepresi = $hasilTerakhir
@@ -65,11 +61,9 @@ class PsikologController extends Controller
             ->orderBy('tanggal')
             ->get();
 
-        // =====================
         // CHART BAWAH
         // 1 mahasiswa = 1 DIMENSI DOMINAN
-        // =====================
-
+        
         $levelMap = [
             'Normal' => 0,
             'Ringan' => 1,
@@ -142,7 +136,7 @@ class PsikologController extends Controller
             ->orderBy('created_at', 'desc') 
             ->get();
 
-        // Untuk grafik tren, kita tetap gunakan urutan waktu (asc) agar garis mengalir dari kiri ke kanan
+        // Untuk grafik tren
         $trendMood = $mahasiswa->moodTracker()
             ->orderBy('created_at', 'asc')
             ->limit(30)

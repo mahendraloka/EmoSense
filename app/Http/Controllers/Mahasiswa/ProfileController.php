@@ -51,17 +51,16 @@ class ProfileController extends Controller
         /** @var Mahasiswa $mahasiswa */
         $mahasiswa = Auth::guard('mahasiswa')->user();
 
-        // 1. Cek apakah password lama yang dimasukkan cocok dengan di database
+        // Cek apakah password lama yang dimasukkan cocok dengan di database
         if (!Hash::check($request->password_lama, $mahasiswa->password)) {
             return back()->withErrors(['password_lama' => 'Password lama yang Anda masukkan salah.']);
         }
 
-        // 2. Update password menggunakan save() agar lebih konsisten dengan model
+        // Update password
         $mahasiswa->password = Hash::make($request->password_baru);
         $mahasiswa->save();
 
-        // 3. Opsional: Logout dan Login kembali untuk menyegarkan session guard
-        // Tapi biasanya save() sudah cukup jika session driver menggunakan database/file
+        // Logout dan Login kembali untuk menyegarkan session guard
         
         return back()->with('success', 'Password berhasil diperbarui. Silakan gunakan password baru Anda selanjutnya.');
     }

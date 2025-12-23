@@ -16,7 +16,7 @@ class PertanyaanDASS21Controller extends Controller
                 $q->where('teks_pertanyaan', 'like', "%$search%")
                 ->orWhere('kategori', 'like', "%$search%");
             })
-            ->orderBy('urutan') // 🔴 WAJIB
+            ->orderBy('urutan')
             ->paginate(10);
 
         $totalPertanyaan = PertanyaanDASS21::count();

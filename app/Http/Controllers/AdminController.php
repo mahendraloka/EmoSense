@@ -104,7 +104,7 @@ class AdminController extends Controller
         $newPassword = str()->random(8);
         $password = bcrypt($newPassword);
 
-        // // HANDLE FOTO PROFIL UNTUK PSIKOLOG (MENGGUNAKAN STORAGE FACADE)
+        // HANDLE FOTO PROFIL UNTUK PSIKOLOG
         $fotoPath = null;
         if ($type === 'psikolog' && $request->hasFile('foto_profil')) {
             $fotoPath = $request->file('foto_profil')
@@ -128,7 +128,7 @@ class AdminController extends Controller
                 'nomor_hp' => $validated['nomor_hp'],
                 'nomor_str' => $validated['nomor_str'],
                 'spesialisasi' => $validated['spesialisasi'],
-                'foto_profil' => $fotoPath, // Gunakan nama file yang sudah disiapkan
+                'foto_profil' => $fotoPath,
                 'password' => $password,
             ]);
         } else { // ADMIN
@@ -178,7 +178,7 @@ class AdminController extends Controller
 
         $request->validate($rules);
 
-        // ⛔ email DIABAIKAN
+        // email DIABAIKAN
         $data = $request->except('email');
 
         if ($type === 'psikolog' && $request->hasFile('foto_profil')) {
@@ -221,7 +221,6 @@ class AdminController extends Controller
 
         // Hapus foto profil psikolog jika ada
         if ($type === 'psikolog' && $user->foto_profil) {
-            // Storage::disk('public')->delete('psikolog/' . $user->foto_profil);
             Storage::disk('public')->delete($user->foto_profil);
         }        
 

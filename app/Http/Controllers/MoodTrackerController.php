@@ -13,16 +13,12 @@ class MoodTrackerController extends Controller
     {
         $user = Auth::guard('mahasiswa')->user();
 
-        /* =========================
-         * RIWAYAT (AMAN)
-         * ========================= */
+        // RIWAYAT
         $history = MoodTracker::where('Mahasiswa_id_Mahasiswa', $user->id_Mahasiswa)
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        /* =========================
-         * GRAFIK (STABIL & AMAN)
-         * ========================= */
+        // GRAFIK
         $chartData = MoodTracker::where('Mahasiswa_id_Mahasiswa', $user->id_Mahasiswa)
             ->whereNotNull('tanggal_input') // ⬅️ PENTING
             ->selectRaw('DATE(tanggal_input) as tanggal, AVG(tingkat_mood) as avg_mood')
