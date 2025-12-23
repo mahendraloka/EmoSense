@@ -68,7 +68,7 @@ class MoodTrackerController extends Controller
             'catatan_harian' => 'nullable|string|max:500',
         ]);
 
-        $mood = MoodTracker::where('id_Mood', $id)->firstOrFail();
+        $mood = MoodTracker::findOrFail($id);
 
         if ($mood->Mahasiswa_id_Mahasiswa !== Auth::guard('mahasiswa')->id()) {
             abort(403);
@@ -84,7 +84,7 @@ class MoodTrackerController extends Controller
 
     public function destroy($id)
     {
-        $mood = MoodTracker::where('id_Mood', $id)->firstOrFail();
+        $mood = MoodTracker::findOrFail($id);
 
         if ($mood->Mahasiswa_id_Mahasiswa !== Auth::guard('mahasiswa')->id()) {
             abort(403);
