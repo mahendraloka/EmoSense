@@ -138,8 +138,9 @@ $emojis = [
 
                             {{-- EDIT STATE --}}
                             <div x-show="edit" x-cloak class="mt-3">
-                                <form method="POST" action="{{ route('moodtracker.update', $item->id_Mood) }}" class="space-y-3">
-                                    @csrf @method('PUT')
+                                <form method="POST" action="{{ route('moodtracker.update', $item->id_Mood) }}">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="PUT">
                                     <select name="tingkat_mood" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-sky-500/20 outline-none">
                                         @foreach($emojis as $v => $e)
                                             <option value="{{ $v }}" @selected($v == $moodInt)>{{ $e['emoji'] }} {{ $e['label'] }}</option>
