@@ -50,8 +50,8 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     //moodtracker
     Route::get('/mahasiswa/moodtracker', [MoodTrackerController::class, 'index'])->name('moodtracker.index');
     Route::post('/mahasiswa/moodtracker', [MoodTrackerController::class, 'store'])->name('moodtracker.store');
-    Route::post('/mahasiswa/moodtracker/{id}', [MoodTrackerController::class, 'update'])->name('moodtracker.update');
-    Route::post('/mahasiswa/moodtracker/{id}', [MoodTrackerController::class, 'destroy'])->name('moodtracker.destroy');
+    Route::post('/mahasiswa/moodtracker/update/{id}', [MoodTrackerController::class, 'update'])->name('moodtracker.update');
+    Route::post('/mahasiswa/moodtracker/delete/{id}', [MoodTrackerController::class, 'destroy'])->name('moodtracker.destroy');
     //artikel
     Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
     Route::get('/artikel/{id}', [ArtikelController::class, 'show'])->name('artikel.show');
