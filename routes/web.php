@@ -28,16 +28,6 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/register', [RegisterController::class, 'showRegister'])->name('register');
 Route::post('/register', [RegisterController::class, 'registerProcess'])->name('register.process');
 
-// // LOGOUT untuk semua guard
-// Route::post('/logout', function () {
-
-//     Auth::guard('admin')->logout();
-//     Auth::guard('mahasiswa')->logout();
-//     Auth::guard('psikolog')->logout();
-
-//     return redirect('/login');
-// })->name('logout');
-
 
 //MAHASISWA
 Route::middleware(['auth:mahasiswa'])->group(function () {
@@ -60,8 +50,8 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     //moodtracker
     Route::get('/mahasiswa/moodtracker', [MoodTrackerController::class, 'index'])->name('moodtracker.index');
     Route::post('/mahasiswa/moodtracker', [MoodTrackerController::class, 'store'])->name('moodtracker.store');
-    Route::put('/mahasiswa/moodtracker/{id}', [MoodTrackerController::class, 'update'])->name('moodtracker.update');
-    Route::delete('/mahasiswa/moodtracker/{id}', [MoodTrackerController::class, 'destroy'])->name('moodtracker.destroy');
+    Route::post('/mahasiswa/moodtracker/{id}', [MoodTrackerController::class, 'update'])->name('moodtracker.update');
+    Route::post('/mahasiswa/moodtracker/{id}', [MoodTrackerController::class, 'destroy'])->name('moodtracker.destroy');
     //artikel
     Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
     Route::get('/artikel/{id}', [ArtikelController::class, 'show'])->name('artikel.show');
