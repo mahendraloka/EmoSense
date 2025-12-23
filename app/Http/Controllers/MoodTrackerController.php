@@ -84,7 +84,7 @@ class MoodTrackerController extends Controller
 
     public function destroy($id)
     {
-        $mood = MoodTracker::findOrFail($id);
+        $mood = MoodTracker::where('id_Mood', $id)->firstOrFail();
 
         if ($mood->Mahasiswa_id_Mahasiswa !== Auth::guard('mahasiswa')->id()) {
             abort(403);
