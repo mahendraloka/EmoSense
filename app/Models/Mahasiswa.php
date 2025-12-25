@@ -62,20 +62,14 @@ class Mahasiswa extends Authenticatable
     // Hasil DASS21 terakhir
     public function dassTerakhir()
     {
-        return $this->hasOne(
-            HasilDASS21::class,
-            'Mahasiswa_id_Mahasiswa',
-            'id_Mahasiswa'
-        )->latest('tanggal_test');
+        return $this->hasOne(HasilDASS21::class, 'Mahasiswa_id_Mahasiswa', 'id_Mahasiswa')
+                    ->latestOfMany('id_Hasil'); // Jauh lebih aman untuk hosting
     }
 
     // Mood terakhir
     public function moodTerakhir()
     {
-        return $this->hasOne(
-            MoodTracker::class,
-            'Mahasiswa_id_Mahasiswa',
-            'id_Mahasiswa'
-        )->latest('tanggal_input');
+        return $this->hasOne(MoodTracker::class, 'Mahasiswa_id_Mahasiswa', 'id_Mahasiswa')
+                    ->latestOfMany('id_Mood'); // Atau 'created_at'
     }
 }

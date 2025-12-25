@@ -93,6 +93,44 @@
         </div>
     </div>
 
+    {{-- Letakkan di bawah informasi skor DASS --}}
+    <div class="mt-8 bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100">
+        <h3 class="text-sm font-black uppercase tracking-widest text-gray-800 mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 bg-indigo-500 rounded-full"></span> Audit Jawaban Per Item
+        </h3>
+        
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="bg-gray-50 text-[10px] font-black text-gray-400 uppercase">
+                        <th class="px-4 py-3 w-12 text-center">No</th>
+                        <th class="px-4 py-3">Pertanyaan DASS-21</th>
+                        <th class="px-4 py-3 text-center">Skor Mhs</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    @php
+                        // Ambil semua pertanyaan dari tabel pertanyaan_dass21
+                        $semuaPertanyaan = \App\Models\PertanyaanDASS21::orderBy('urutan')->get();
+                        $jawabanMhs = $hasilDASS->daftar_jawaban ?? [];
+                    @endphp
+
+                    @foreach($semuaPertanyaan as $index => $q)
+                    <tr class="hover:bg-gray-50/50 transition">
+                        <td class="px-4 py-3 text-center text-xs font-bold text-gray-400">{{ $index + 1 }}</td>
+                        <td class="px-4 py-3 text-sm text-gray-600 font-medium">{{ $q->teks_pertanyaan }}</td>
+                        <td class="px-4 py-3 text-center">
+                            <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg {{ isset($jawabanMhs[$q->id_Pertanyaan]) ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-300' }} font-black text-xs">
+                                {{ $jawabanMhs[$q->id_Pertanyaan] ?? '-' }}
+                            </span>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     {{-- GRAFIK TREN MOOD --}}
     <div class="bg-white rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-10 shadow-sm border border-gray-100">
         <h3 class="text-xl font-black text-gray-800 tracking-tight mb-8 md:mb-10">Tren Emosi Harian</h3>

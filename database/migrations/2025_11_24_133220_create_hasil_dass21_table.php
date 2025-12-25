@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('tingkat_anxiety');
             $table->string('tingkat_stress');
 
+            $table->text('daftar_jawaban')->nullable();
+
             $table->timestamps();
 
             $table->foreign('Mahasiswa_id_Mahasiswa')

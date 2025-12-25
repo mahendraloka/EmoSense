@@ -148,7 +148,9 @@ class PsikologController extends Controller
                 ];
             });
 
-        $hasilDASS = $mahasiswa->dassTerakhir;
+        $hasilDASS = HasilDASS21::where('Mahasiswa_id_Mahasiswa', $id)
+            ->orderBy('id_Hasil', 'desc') 
+            ->first();
 
         return view('psikolog.mahasiswa.detail', compact(
             'mahasiswa',

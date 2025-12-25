@@ -51,6 +51,7 @@ class SelfAssessmentController extends Controller
             'tingkat_depresi' => $this->getLevel('Depression', $skorDepresi * 2),
             'tingkat_anxiety' => $this->getLevel('Anxiety', $skorAnxiety * 2),
             'tingkat_stress' => $this->getLevel('Stress', $skorStress * 2),
+            'daftar_jawaban' => $answers,
         ]);
 
         return redirect()

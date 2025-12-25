@@ -7,11 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class HasilDASS21 extends Model
 {
     protected $table = 'hasil_dass21';
-
     protected $primaryKey = 'id_Hasil';
-
     public $incrementing = true;
-
     protected $keyType = 'int';
 
     protected $fillable = [
@@ -23,5 +20,12 @@ class HasilDASS21 extends Model
         'tingkat_depresi',
         'tingkat_anxiety',
         'tingkat_stress',
+        'daftar_jawaban',
+    ];
+
+    // WAJIB TAMBAHKAN INI agar array otomatis jadi JSON di database
+    protected $casts = [
+        'daftar_jawaban' => 'array',
+        'tanggal_test' => 'date'
     ];
 }
