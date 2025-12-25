@@ -15,13 +15,12 @@ class MoodTrackerController extends Controller
 
         // RIWAYAT
         $history = MoodTracker::where('Mahasiswa_id_Mahasiswa', $user->id_Mahasiswa)
-            ->orderBy('created_at', 'DESC')
+            ->latest()
             ->get();
 
         // GRAFIK
         $chartData = MoodTracker::where('Mahasiswa_id_Mahasiswa', $user->id_Mahasiswa)
-            ->whereNotNull('tanggal_input') // ⬅️ PENTING
-            ->selectRaw('DATE(tanggal_input) as tanggal, AVG(tingkat_mood) as avg_mood')
+            ->selectRaw('DATE(created_at) as tanggal, AVG(tingkat_mood) as avg_mood')
             ->groupBy('tanggal')
             ->orderBy('tanggal', 'ASC')
             ->get();
@@ -68,10 +67,10 @@ class MoodTrackerController extends Controller
             'catatan_harian' => 'nullable|string|max:500',
         ]);
 
-        $mood = MoodTracker::findOrFail($id);
+        $mood = MoodTracker::where('id_Mood', $id)->firstOrFail();
 
-        if ($mood->Mahasiswa_id_Mahasiswa !== Auth::guard('mahasiswa')->id()) {
-            abort(403);
+        if ($mood->Mahasiswa_id_Mahasiswa != Auth::guard('mahasiswa')->id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
 
         $mood->update([
@@ -84,9 +83,9 @@ class MoodTrackerController extends Controller
 
     public function destroy($id)
     {
-        $mood = MoodTracker::findOrFail($id);
+        $mood = MoodTracker::where('id_Mood', $id)->firstOrFail();
 
-        if ($mood->Mahasiswa_id_Mahasiswa !== Auth::guard('mahasiswa')->id()) {
+        if ($mood->Mahasiswa_id_Mahasiswa != Auth::guard('mahasiswa')->id()) {
             abort(403);
         }
 

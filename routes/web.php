@@ -52,8 +52,8 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     Route::post('/mahasiswa/moodtracker', [MoodTrackerController::class, 'store'])->name('moodtracker.store');
 
     // URL unik untuk Update dan Delete agar tidak bentrok
-    Route::post('/mahasiswa/moodtracker/update/{id}', [MoodTrackerController::class, 'update'])->name('moodtracker.update');
-    Route::post('/mahasiswa/moodtracker/delete/{id}', [MoodTrackerController::class, 'destroy'])->name('moodtracker.destroy');
+    Route::post('/mahasiswa/moodtracker/update/{id_Mood}', [MoodTrackerController::class, 'update'])->name('moodtracker.update');
+    Route::post('/mahasiswa/moodtracker/delete/{id_Mood}', [MoodTrackerController::class, 'destroy'])->name('moodtracker.destroy');
     //artikel
     Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
     Route::get('/artikel/{id}', [ArtikelController::class, 'show'])->name('artikel.show');
