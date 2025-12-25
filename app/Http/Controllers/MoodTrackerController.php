@@ -20,17 +20,15 @@ class MoodTrackerController extends Controller
 
         // GRAFIK
         $chartData = MoodTracker::where('Mahasiswa_id_Mahasiswa', $user->id_Mahasiswa)
-            ->selectRaw('DATE(created_at) as tanggal, AVG(tingkat_mood) as avg_mood')
-            ->groupBy('tanggal')
-            ->orderBy('tanggal', 'ASC')
-            ->get();
+        ->orderBy('created_at', 'ASC')
+        ->get();
 
         $chartLabels = $chartData->map(function ($item) {
-            return Carbon::parse($item->tanggal)->format('d M');
+            return Carbon::parse($item->tanggal)->format('d M H:i');
         })->toArray();
 
         $chartValues = $chartData->map(function ($item) {
-            return round($item->avg_mood, 1);
+            return (int) $item->tingkat_mood;
         })->toArray();
 
         return view('mahasiswa.moodtracker', compact(
