@@ -59,7 +59,7 @@
         <form action="{{ route('psikolog.logout') }}" method="POST">
             @csrf
             <button class="w-full flex items-center justify-center gap-3 bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white py-3.5 rounded-2xl transition-all duration-300 font-bold text-xs uppercase tracking-widest shadow-sm">
-                <span>🚪</span> Logout Sistem
+                <span>🚪</span> Logout
             </button>
         </form>
     </div>

@@ -38,7 +38,7 @@
         {{-- CONTENT AREA --}}
         <div class="flex flex-col flex-1 min-w-0 bg-[#0F172A] lg:bg-gray-50">
             {{-- Top Navbar Mobile --}}
-            <header class="sticky top-0 z-30 flex items-center justify-between px-6 py-4 bg-[#0F172A] lg:hidden shadow-xl border-none outline-none -mt-px pt-[calc(1rem+1px)]">
+            <header class="sticky top-0 z-30 flex items-center justify-between px-6 py-4 bg-[#0F172A] lg:hidden shadow-xl border-none outline-none -mt-px">
                 <div class="flex items-center gap-2">
                     <img src="{{ asset('img/logo.png') }}" alt="Logo" class="w-8 h-8 object-contain">
                     <h2 class="text-xl font-extrabold tracking-tight text-white italic">
