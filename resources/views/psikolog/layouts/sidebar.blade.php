@@ -7,10 +7,13 @@
 >
     {{-- Header Sidebar --}}
     <div class="p-8 flex-shrink-0">
-        <h2 class="text-3xl font-black tracking-tight text-white italic">
-            Emo<span class="text-green-400">Sense</span>
-        </h2>
-        <div class="flex items-center gap-2 mt-2">
+        <div class="flex items-center gap-3">
+            <img src="{{ asset('img/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain drop-shadow-md">
+            <h2 class="text-3xl font-black tracking-tight text-white italic">
+                Emo<span class="text-green-400">Sense</span>
+            </h2>
+        </div>
+        <div class="flex items-center gap-2 mt-3">
             <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
             <p class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em]">Psikolog Panel</p>
         </div>

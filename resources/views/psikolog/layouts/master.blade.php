@@ -36,9 +36,12 @@
         <div class="flex flex-col flex-1 w-full min-w-0">
             {{-- Header Mobile --}}
             <header class="sticky top-0 z-30 flex items-center justify-between px-6 py-4 bg-[#0F172A] lg:hidden shadow-xl border-none outline-none -mt-px pt-[calc(1rem+1px)]">
-                <h2 class="text-xl font-extrabold tracking-tight text-white italic">
-                    Emo<span class="text-green-400">Sense</span>
-                </h2>
+                <div class="flex items-center gap-2">
+                    <img src="{{ asset('img/logo.png') }}" alt="Logo" class="w-8 h-8 object-contain">
+                    <h2 class="text-xl font-extrabold tracking-tight text-white italic">
+                        Emo<span class="text-green-400">Sense</span>
+                    </h2>
+                </div>
                 
                 <div class="flex items-center gap-4">
                     <button @click="sidebarOpen = true" class="p-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all border border-white/10">
