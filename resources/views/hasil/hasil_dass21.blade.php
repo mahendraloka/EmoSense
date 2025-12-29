@@ -226,16 +226,20 @@
         </div>
 
         {{-- AKSI --}}
-        <div class="flex flex-col sm:flex-row justify-center gap-5 mt-10">
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
+            {{-- Tombol Kembali --}}
             <a href="{{ route('mahasiswa.home') }}"
-               class="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-white text-slate-600 font-black uppercase tracking-[0.2em] text-xs shadow-xl border border-white hover:bg-slate-50 transition-all active:scale-95 group">
-                <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+               class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-white text-slate-600 font-black uppercase tracking-[0.15em] text-[10px] md:text-xs shadow-lg border border-slate-100 hover:bg-slate-50 transition-all active:scale-95 group order-2 sm:order-1">
+                <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
                 Kembali
             </a>
 
+            {{-- Tombol Hubungi Psikolog --}}
             <a href="{{ route('psikolog.list') }}"
-               class="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black uppercase tracking-[0.2em] text-xs shadow-xl shadow-emerald-200 hover:opacity-90 transition-all active:scale-95">
-                📞 Hubungi Psikolog
+               class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black uppercase tracking-[0.15em] text-[10px] md:text-xs shadow-xl shadow-emerald-200/50 hover:opacity-90 transition-all active:scale-95 order-1 sm:order-2">
+                <span>📞 Hubungi Psikolog</span>
             </a>
         </div>
     </div>

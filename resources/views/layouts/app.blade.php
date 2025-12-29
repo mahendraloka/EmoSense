@@ -66,7 +66,18 @@
             </div>
 
             {{-- Mobile Drawer --}}
-            <div x-show="mobileMenu" x-cloak x-transition class="md:hidden bg-white border-t border-slate-100 px-6 py-8 space-y-6 shadow-xl">
+            <div 
+                x-show="mobileMenu" 
+                x-cloak 
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 -translate-y-4"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-4"
+                @click.away="mobileMenu = false"
+                class="md:hidden absolute top-full left-0 w-full bg-white border-b border-slate-100 px-6 py-8 space-y-6 shadow-2xl z-50"
+                >
                 <div class="flex items-center gap-4 mb-8">
                     <div class="w-12 h-12 rounded-2xl bg-sky-600 text-white flex items-center justify-center font-bold text-lg shadow-lg shadow-sky-200">
                         {{ strtoupper(substr(Auth::guard('mahasiswa')->user()->nama,0,1)) }}

@@ -125,9 +125,9 @@
                         <td class="px-6 py-5 text-center">
                             @php $dass = $mhs->dassTerakhir; @endphp
                             @if(!$dass)
-                                <span class="text-[10px] font-bold text-gray-300 uppercase italic">Belum Mengisi</span>
+                            <span class="text-[10px] font-bold text-gray-300 uppercase italic whitespace-nowrap">Belum Mengisi</span>
                             @elseif(in_array($dass->tingkat_depresi, ['Berat','Sangat Berat']) || in_array($dass->tingkat_anxiety, ['Berat','Sangat Berat']) || in_array($dass->tingkat_stress, ['Berat','Sangat Berat']))
-                                <span class="px-4 py-1.5 bg-rose-50 text-rose-600 rounded-full text-[10px] font-black uppercase border border-rose-100 shadow-sm animate-pulse">Risiko Tinggi</span>
+                            <span class="px-4 py-1.5 bg-rose-50 text-rose-600 rounded-full text-[10px] font-black uppercase border border-rose-100 shadow-sm animate-pulse whitespace-nowrap">Risiko Tinggi</span>
                             @elseif(in_array($dass->tingkat_depresi, ['Sedang']) || in_array($dass->tingkat_anxiety, ['Sedang']) || in_array($dass->tingkat_stress, ['Sedang']))
                                 <span class="px-4 py-1.5 bg-amber-50 text-amber-600 rounded-full text-[10px] font-black uppercase border border-amber-100 shadow-sm">Sedang</span>
                             @else

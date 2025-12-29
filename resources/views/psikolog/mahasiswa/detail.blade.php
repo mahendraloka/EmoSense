@@ -145,67 +145,92 @@
         </div>
     </div>
 
-    {{-- RIWAYAT TRACKER --}}
+    {{-- RIWAYAT MOODTRACKER --}}
     <div class="bg-white rounded-[2.5rem] md:rounded-[3rem] shadow-sm border border-gray-100 overflow-hidden">
         <div class="p-8 md:p-10 border-b border-gray-50 bg-gradient-to-r from-white to-gray-50/30">
             <h3 class="text-lg md:text-xl font-black text-gray-800 tracking-tight text-center md:text-left">Riwayat Mood Tracker</h3>
         </div>
         
-        <div class="overflow-x-auto">
-            <table class="w-full text-left table-fixed"> {{-- table-fixed agar kolom stabil --}}
+        {{-- TAMPILAN DESKTOP (TABLE) --}}
+        <div class="hidden md:block overflow-x-auto">
+            <table class="w-full text-left table-fixed">
                 <thead>
                     <tr class="bg-gray-50/50 border-b border-gray-100">
-                        <th class="px-6 py-6 text-[10px] font-black text-gray-400 uppercase tracking-widest w-32 md:w-48 text-center">Waktu Input</th>
-                        <th class="px-6 py-6 text-[10px] font-black text-gray-400 uppercase tracking-widest w-32 md:w-48 text-center">Skala Mood</th>
+                        <th class="px-6 py-6 text-[10px] font-black text-gray-400 uppercase tracking-widest w-48 text-center">Waktu Input</th>
+                        <th class="px-6 py-6 text-[10px] font-black text-gray-400 uppercase tracking-widest w-48 text-center">Skala Mood</th>
                         <th class="px-6 py-6 text-[10px] font-black text-gray-400 uppercase tracking-widest">Catatan Psikologis Mahasiswa</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">
                     @forelse($riwayatMood as $mood)
+                    @php
+                        $moodConfig = [
+                            5 => ['emoji' => '😄', 'label' => 'Sangat Senang', 'bg' => 'bg-green-100', 'text' => 'text-green-700', 'border' => 'border-green-200'],
+                            4 => ['emoji' => '🙂', 'label' => 'Senang', 'bg' => 'bg-emerald-50', 'text' => 'text-emerald-600', 'border' => 'border-emerald-100'],
+                            3 => ['emoji' => '😐', 'label' => 'Biasa Saja', 'bg' => 'bg-slate-100', 'text' => 'text-slate-500', 'border' => 'border-slate-200'],
+                            2 => ['emoji' => '🙁', 'label' => 'Sedih', 'bg' => 'bg-orange-50', 'text' => 'text-orange-600', 'border' => 'border-orange-100'],
+                            1 => ['emoji' => '😢', 'label' => 'Sangat Sedih', 'bg' => 'bg-rose-100', 'text' => 'text-rose-700', 'border' => 'border-rose-200'],
+                        ];
+                        $score = intval($mood->tingkat_mood);
+                        $style = $moodConfig[$score] ?? ['emoji' => '😶', 'label' => 'N/A', 'bg' => 'bg-gray-50', 'text' => 'text-gray-400', 'border' => 'border-gray-100'];
+                    @endphp
                     <tr class="group hover:bg-gray-50/50 transition-all duration-300">
                         <td class="px-6 py-8 text-center">
-                            {{-- TANGGAL & WAKTU REALTIME --}}
-                            <p class="text-sm font-black text-gray-800 whitespace-nowrap">{{ \Carbon\Carbon::parse($mood->created_at)->translatedFormat('d M Y') }}</p>
-                            <p class="text-[9px] text-green-600 font-bold uppercase mt-1 tracking-tighter">Pukul {{ \Carbon\Carbon::parse($mood->created_at)->format('H:i') }} WIB</p>
+                            <p class="text-sm font-black text-gray-800">{{ \Carbon\Carbon::parse($mood->created_at)->translatedFormat('d M Y') }}</p>
+                            <p class="text-[9px] text-green-600 font-bold uppercase mt-1">Pukul {{ \Carbon\Carbon::parse($mood->created_at)->format('H:i') }} WIB</p>
                         </td>
                         <td class="px-6 py-8 text-center">
-                            @php
-                                // Map berdasarkan angka 1-5 sesuai yang tersimpan di database Anda
-                                $moodConfig = [
-                                    5 => ['emoji' => '😄', 'label' => 'Sangat Senang', 'bg' => 'bg-green-100', 'text' => 'text-green-700', 'border' => 'border-green-200'],
-                                    4 => ['emoji' => '🙂', 'label' => 'Senang',        'bg' => 'bg-emerald-50', 'text' => 'text-emerald-600', 'border' => 'border-emerald-100'],
-                                    3 => ['emoji' => '😐', 'label' => 'Biasa Saja',    'bg' => 'bg-slate-100',  'text' => 'text-slate-500',   'border' => 'border-slate-200'],
-                                    2 => ['emoji' => '🙁', 'label' => 'Sedih',         'bg' => 'bg-orange-50',  'text' => 'text-orange-600',  'border' => 'border-orange-100'],
-                                    1 => ['emoji' => '😢', 'label' => 'Sangat Sedih',  'bg' => 'bg-rose-100',   'text' => 'text-rose-700',    'border' => 'border-rose-200'],
-                                ];
-                        
-                                // Ambil data berdasarkan tingkat_mood (pastikan ini angka)
-                                $score = intval($mood->tingkat_mood);
-                                $style = $moodConfig[$score] ?? ['emoji' => '😶', 'label' => 'Tidak Diketahui', 'bg' => 'bg-gray-50', 'text' => 'text-gray-400', 'border' => 'border-gray-100'];
-                            @endphp
-                            
-                            <div class="flex flex-col items-center gap-2 group-hover:scale-110 transition-transform duration-500">
-                                <span class="text-4xl filter drop-shadow-sm">{{ $style['emoji'] }}</span>
-                                <span class="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border shadow-sm min-w-[100px] {{ $style['bg'] }} {{ $style['text'] }} {{ $style['border'] }}">
+                            <div class="flex flex-col items-center gap-2 group-hover:scale-110 transition-transform">
+                                <span class="text-4xl">{{ $style['emoji'] }}</span>
+                                <span class="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border {{ $style['bg'] }} {{ $style['text'] }} {{ $style['border'] }}">
                                     {{ $style['label'] }}
                                 </span>
                             </div>
                         </td>
                         <td class="px-6 py-8">
-                            <div class="bg-gray-50/50 p-5 rounded-2xl border border-gray-100 group-hover:bg-white transition-all duration-300 shadow-inner group-hover:shadow-md w-full max-w-full overflow-hidden">
-                                <p class="text-sm text-gray-600 leading-relaxed italic whitespace-pre-line break-words [word-break:break-word] [overflow-wrap:anywhere]">
-                                    "{{ $mood->catatan_harian ?? 'Mahasiswa tidak menyertakan catatan naratif.' }}"
-                                </p>
+                            <div class="bg-gray-50/50 p-5 rounded-2xl border border-gray-100 italic text-sm text-gray-600 leading-relaxed">
+                                <p class="text-sm text-gray-600 leading-relaxed italic whitespace-pre-line text-left break-all">
+                                "{{ $mood->catatan_harian ?? 'Tidak ada catatan.' }}"
                             </div>
                         </td>
                     </tr>
                     @empty
-                    <tr>
-                        <td colspan="3" class="px-8 py-16 text-center text-gray-400 font-bold uppercase text-[10px] tracking-widest">Belum ada riwayat mood</td>
-                    </tr>
+                    <tr><td colspan="3" class="px-8 py-16 text-center text-gray-400 font-bold uppercase text-[10px]">Belum ada riwayat</td></tr>
                     @endforelse
                 </tbody>
             </table>
+        </div>
+    
+        {{-- TAMPILAN MOBILE (CARDS) --}}
+        <div class="md:hidden divide-y divide-gray-100">
+            @forelse($riwayatMood as $mood)
+                @php
+                    // Re-use config yang sama untuk mobile
+                    $score = intval($mood->tingkat_mood);
+                    $style = $moodConfig[$score] ?? ['emoji' => '😶', 'label' => 'N/A', 'bg' => 'bg-gray-50', 'text' => 'text-gray-400', 'border' => 'border-gray-100'];
+                @endphp
+                <div class="p-6 space-y-4 bg-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-black text-gray-800">{{ \Carbon\Carbon::parse($mood->created_at)->translatedFormat('d M Y') }}</p>
+                            <p class="text-[9px] text-green-600 font-bold uppercase">Pukul {{ \Carbon\Carbon::parse($mood->created_at)->format('H:i') }} WIB</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">{{ $style['emoji'] }}</span>
+                            <span class="px-2 py-1 rounded-lg text-[8px] font-black uppercase border {{ $style['bg'] }} {{ $style['text'] }} {{ $style['border'] }}">
+                                {{ $style['label'] }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                        <p class="text-xs text-gray-600 leading-relaxed italic break-all overflow-hidden">
+                            "{{ $mood->catatan_harian ?? 'Tidak ada catatan.' }}"
+                        </p>
+                    </div>
+                </div>
+            @empty
+                <div class="px-8 py-16 text-center text-gray-400 font-bold uppercase text-[10px]">Belum ada riwayat</div>
+            @endforelse
         </div>
     </div>
 </div>
