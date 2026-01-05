@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ArtikelAdminController;
 use App\Http\Controllers\Admin\PertanyaanDASS21Controller;
 use App\Http\Controllers\Mahasiswa\ProfileController;
 use App\Http\Controllers\Psikolog\ProfileController as PsikologProfileController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 
 
 // Redirect ke login
@@ -91,6 +92,9 @@ Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(functi
     Route::delete('/users/{type}/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
     Route::get('/users/{type}/create', [AdminController::class, 'create'])->name('users.create');
     Route::post('/users/{type}/store', [AdminController::class, 'store'])->name('users.store');
+    //Atur Profile Admin
+    Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
     
     // Reset password
     Route::post('/manage-users/{type}/{id}/reset-password', [AdminController::class, 'resetPassword'])

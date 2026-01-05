@@ -106,7 +106,7 @@
         </div>
 
         {{-- KEAMANAN --}}
-        <div class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-slate-200/60 border border-white p-6 md:p-10 transition-all text-left">
+        <div id="sectionPassword" class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-slate-200/60 border border-white p-6 md:p-10 transition-all text-left">
             <div class="flex items-center gap-3 mb-8">
                 <div class="w-1.5 h-6 bg-rose-500 rounded-full"></div>
                 <h2 class="text-lg font-black text-slate-800 tracking-tight uppercase tracking-widest">Keamanan Akun</h2>
@@ -116,29 +116,50 @@
                 @csrf
                 @method('PUT')
 
+                {{-- Password Lama --}}
                 <div class="space-y-2">
                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Password Lama</label>
-                    <input type="password" name="password_lama" placeholder="••••••••"
-                        class="w-full px-5 py-3.5 rounded-2xl bg-slate-50/50 border border-slate-100 focus:ring-4 focus:ring-rose-500/10 focus:border-rose-400 focus:bg-white transition-all outline-none font-bold">
-                    {{-- Pesan error diletakkan di bawah input --}}
+                    <div class="relative">
+                        <input type="password" id="password_lama" name="password_lama" placeholder="••••••••"
+                            class="w-full px-5 py-3.5 pr-12 rounded-2xl bg-slate-50/50 border focus:ring-4 focus:ring-rose-500/10 focus:border-rose-400 focus:bg-white transition-all outline-none font-bold {{ $errors->has('password_lama') ? 'border-rose-500 ring-2 ring-rose-100' : 'border-slate-100' }}">
+                        <button type="button" onclick="toggleVisibility('password_lama', 'eyeOld', 'eyeOldSlash')" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 p-2 focus:outline-none hover:text-rose-500 transition-colors">
+                            <svg id="eyeOld" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.036 12.322a1.012 1.012 0 010-.644m17.832 0a1.012 1.012 0 010 .644M12 18.75c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.046m4.01-4.22a9.956 9.956 0 013.97-1.033m2.632 0c1.398.077 2.731.43 3.933 1.033m4.026 4.22a9.97 9.97 0 011.563 3.046M12 5.25c4.478 0 8.268-2.943 9.543 7a9.97 9.97 0 01-1.563 3.046M9.75 12a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0Z" /></svg>
+                            <svg id="eyeOldSlash" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" /></svg>
+                        </button>
+                    </div>
                     @error('password_lama')
-                        <p class="text-rose-500 text-[10px] font-bold mt-1 ml-2 uppercase">{{ $message }}</p>
+                        <p class="text-rose-500 text-[10px] font-bold mt-1 ml-2 uppercase animate-pulse">⚠️ {{ $message }}</p>
                     @enderror
                 </div>
                 
+                {{-- Password Baru --}}
                 <div class="space-y-2">
                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Password Baru</label>
-                    <input type="password" name="password_baru" placeholder="Minimal 8 karakter"
-                        class="w-full px-5 py-3.5 rounded-2xl bg-slate-50/50 border border-slate-100 focus:ring-4 focus:ring-rose-500/10 focus:border-rose-400 focus:bg-white transition-all outline-none font-bold">
+                    <div class="relative">
+                        <input type="password" id="password_baru" name="password_baru" placeholder="Minimal 8 karakter"
+                            class="w-full px-5 py-3.5 pr-12 rounded-2xl bg-slate-50/50 border focus:ring-4 focus:ring-rose-500/10 focus:border-rose-400 focus:bg-white transition-all outline-none font-bold {{ $errors->has('password_baru') ? 'border-rose-500 ring-2 ring-rose-100' : 'border-slate-100' }}">
+                        <button type="button" onclick="toggleVisibility('password_baru', 'eyeNew', 'eyeNewSlash')" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 p-2 focus:outline-none hover:text-rose-500 transition-colors">
+                            <svg id="eyeNew" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.036 12.322a1.012 1.012 0 010-.644m17.832 0a1.012 1.012 0 010 .644M12 18.75c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.046m4.01-4.22a9.956 9.956 0 013.97-1.033m2.632 0c1.398.077 2.731.43 3.933 1.033m4.026 4.22a9.97 9.97 0 011.563 3.046M12 5.25c4.478 0 8.268-2.943 9.543 7a9.97 9.97 0 01-1.563 3.046M9.75 12a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0Z" /></svg>
+                            <svg id="eyeNewSlash" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" /></svg>
+                        </button>
+                    </div>
                     @error('password_baru')
-                        <p class="text-rose-500 text-[10px] font-bold mt-1 ml-2 uppercase">{{ $message }}</p>
+                        <p class="text-rose-500 text-[10px] font-bold mt-1 ml-2 uppercase">⚠️ {{ $message }}</p>
                     @enderror
                 </div>
                 
+                {{-- Konfirmasi Password --}}
                 <div class="space-y-2 md:col-span-2 text-left">
                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Konfirmasi Password Baru</label>
-                    <input type="password" name="password_baru_confirmation" placeholder="Ulangi password baru"
-                        class="w-full px-5 py-3.5 rounded-2xl bg-slate-50/50 border border-slate-100 focus:ring-4 focus:ring-rose-500/10 focus:border-rose-400 focus:bg-white transition-all outline-none font-bold">
+                    <div class="relative">
+                        <input type="password" id="password_baru_confirmation" name="password_baru_confirmation" placeholder="Ulangi password baru"
+                            class="w-full px-5 py-3.5 pr-12 rounded-2xl bg-slate-50/50 border border-slate-100 focus:ring-4 focus:ring-rose-500/10 focus:border-rose-400 focus:bg-white transition-all outline-none font-bold">
+                        <button type="button" onclick="toggleVisibility('password_baru_confirmation', 'eyeConfirm', 'eyeConfirmSlash')" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 p-2 focus:outline-none hover:text-rose-500 transition-colors">
+                            <svg id="eyeConfirm" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.036 12.322a1.012 1.012 0 010-.644m17.832 0a1.012 1.012 0 010 .644M12 18.75c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.046m4.01-4.22a9.956 9.956 0 013.97-1.033m2.632 0c1.398.077 2.731.43 3.933 1.033m4.026 4.22a9.97 9.97 0 011.563 3.046M12 5.25c4.478 0 8.268-2.943 9.543 7a9.97 9.97 0 01-1.563 3.046M9.75 12a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0Z" /></svg>
+                            <svg id="eyeConfirmSlash" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" /></svg>
+                        </button>
+                    </div>
+                    <p id="errorConfirm" class="hidden text-rose-500 text-[10px] font-bold mt-1 ml-2 uppercase animate-pulse">⚠️ Konfirmasi password tidak cocok!</p>
                 </div>
 
                 <div class="md:col-span-2 flex justify-end pt-4">
@@ -152,7 +173,7 @@
     </div>
 </div>
 
-{{-- MODAL KONFIRMASI (SweetAlert2 Style) --}}
+{{-- MODAL KONFIRMASI --}}
 <div id="confirmModal" x-data x-cloak
      class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100] px-4">
     <div class="bg-white rounded-[2.5rem] w-full max-w-md p-8 md:p-10 shadow-2xl border border-white animate-fadeIn">
@@ -170,33 +191,84 @@
                 Batal
             </button>
             <button onclick="submitForm()"
-                    class="py-4 rounded-2xl bg-sky-500 text-white font-black uppercase tracking-widest text-[10px] shadow-lg shadow-sky-100 hover:bg-sky-600 transition-all active:scale-95">
+                    class="py-4 rounded-2xl bg-sky-600 text-white font-black uppercase tracking-widest text-[10px] shadow-lg shadow-sky-100 hover:bg-sky-700 transition-all active:scale-95">
                 Ya, Simpan
             </button>
         </div>
     </div>
 </div>
 
-{{-- SCRIPT DAN STYLE TETAP SAMA --}}
+{{-- JAVASCRIPT --}}
 <script>
     let currentForm = null;
+
+    // 1. Toggle Password Visibility
+    function toggleVisibility(inputId, eyeId, slashId) {
+        const input = document.getElementById(inputId);
+        const eye = document.getElementById(eyeId);
+        const slash = document.getElementById(slashId);
+        if (input.type === "password") {
+            input.type = "text";
+            eye.classList.add('hidden');
+            slash.classList.remove('hidden');
+        } else {
+            input.type = "password";
+            eye.classList.remove('hidden');
+            slash.classList.add('hidden');
+        }
+    }
+
+    // 2. Control Modal Konfirmasi + Validasi Client Side
     function openConfirm(type) {
         currentForm = type === 'profil' ? document.getElementById('formProfil') : document.getElementById('formPassword');
+        const errorJS = document.getElementById('errorConfirm');
+
+        if(errorJS) errorJS.classList.add('hidden');
+
+        // Jika Form Password, cek kecocokan dlu
+        if (type === 'password') {
+            const passBaru = document.getElementById('password_baru').value;
+            const confBaru = document.getElementById('password_baru_confirmation').value;
+
+            if (passBaru !== confBaru) {
+                errorJS.classList.remove('hidden');
+                document.getElementById('password_baru_confirmation').focus();
+                // Scroll ke arah input yang salah
+                document.getElementById('password_baru_confirmation').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return; 
+            }
+        }
+
         document.getElementById('confirmModal').classList.remove('hidden');
         document.getElementById('confirmModal').classList.add('flex');
     }
+
     function closeConfirm() {
         document.getElementById('confirmModal').classList.add('hidden');
         document.getElementById('confirmModal').classList.remove('flex');
         currentForm = null;
     }
+
     function submitForm() {
-        if (currentForm) { currentForm.submit(); }
+        if (currentForm) {
+            currentForm.submit(); 
+        }
     }
+
+    // 3. Scroll Otomatis ke Error Sisi Server saat halaman di-reload
+    @if ($errors->any())
+        window.onload = function() {
+            const firstErrorField = document.querySelector('.text-rose-500');
+            if (firstErrorField) {
+                firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        };
+    @endif
 </script>
 
 <style>
     @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
+    [x-cloak] { display: none !important; }
 </style>
 @endsection
