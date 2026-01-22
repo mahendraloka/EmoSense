@@ -24,7 +24,8 @@ class MoodTrackerController extends Controller
         ->get();
 
         $chartLabels = $chartData->map(function ($item) {
-            return Carbon::parse($item->tanggal)->format('d M H:i');
+            return Carbon::parse($item->created_at)
+                ->format('d M H:i');
         })->toArray();
 
         $chartValues = $chartData->map(function ($item) {
