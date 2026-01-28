@@ -18,10 +18,6 @@
                     <span class="text-green-600">Detail</span>
                 </nav>
                 <h1 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight truncate leading-tight">{{ $mahasiswa->nama }}</h1>
-                <p class="text-sm text-gray-500 font-medium flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                    {{ $mahasiswa->nim }}
-                </p>
             </div>
         </div>
 

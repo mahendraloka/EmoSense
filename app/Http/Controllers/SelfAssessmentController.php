@@ -62,8 +62,13 @@ class SelfAssessmentController extends Controller
     public function result($id)
     {
         $hasil = HasilDASS21::findOrFail($id);
+        // Ambil saran berdasarkan tingkat masing-masing kategori
+        $saranDepresi = $this->getSaran($hasil->tingkat_depresi);
+        $saranAnxiety = $this->getSaran($hasil->tingkat_anxiety);
+        $saranStress  = $this->getSaran($hasil->tingkat_stress);
 
-        return view('hasil.hasil_dass21', compact('hasil'));
+        // Kirim semua variabel ke view
+        return view('hasil.hasil_dass21', compact('hasil', 'saranDepresi', 'saranAnxiety', 'saranStress'));
     }
 
 
@@ -107,5 +112,18 @@ class SelfAssessmentController extends Controller
         }
 
         return 'Tidak Diketahui';
+    }
+
+    private function getSaran($level)
+    {
+        $saran = [
+            'Normal' => 'Tetap jaga keseimbangan aktivitas dan kesehatan mental Anda.',
+            'Ringan' => 'Kondisi ini masih umum dialami banyak orang, namun tetap penting untuk memperhatikan kebutuhan diri dan mengelola stres dengan baik.',
+            'Sedang' => 'Disarankan untuk mulai mempertimbangkan strategi coping yang lebih aktif atau berbicara dengan orang tepercaya.',
+            'Berat'  => 'Disarankan untuk mempertimbangkan mencari bantuan profesional agar mendapatkan dukungan yang sesuai.',
+            'Sangat Berat' => 'Sangat disarankan untuk segera menghubungi tenaga profesional atau layanan bantuan yang tersedia untuk mendapatkan penanganan lebih lanjut.',
+        ];
+
+        return $saran[$level] ?? 'Tetap perhatikan kondisi kesehatan mental Anda.';
     }
 }

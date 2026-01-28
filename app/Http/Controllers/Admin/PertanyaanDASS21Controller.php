@@ -69,7 +69,10 @@ class PertanyaanDASS21Controller extends Controller
             'kategori' => 'required|in:Stress,Anxiety,Depression',
         ]);
 
-        $pertanyaan->update($request->all());
+        $pertanyaan->urutan = $request->urutan;
+        $pertanyaan->teks_pertanyaan = $request->teks_pertanyaan;
+        $pertanyaan->kategori = $request->kategori;
+        $pertanyaan->save();
 
         return redirect()->route('admin.pertanyaan.index')
             ->with('success', 'Pertanyaan berhasil diperbarui.');
@@ -81,13 +84,6 @@ class PertanyaanDASS21Controller extends Controller
 
         // Hitung jumlah item pada kategori yang akan dihapus
         $jumlahKategori = PertanyaanDASS21::where('kategori', $pertanyaan->kategori)->count();
-
-        if ($jumlahKategori <= 7) {
-            return back()->with(
-                'error',
-                "Tidak dapat menghapus. Kategori {$pertanyaan->kategori} harus berjumlah 7 item."
-            );
-        }
 
         $pertanyaan->delete();
 
