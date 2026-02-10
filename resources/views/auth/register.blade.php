@@ -86,12 +86,14 @@
                     @csrf
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {{-- Bagian Nama Lengkap --}}
                         <div>
                             <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">Nama Lengkap</label>
                             <input type="text" name="nama" required
                                 placeholder="Contoh: Jhon Doe"
                                 oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')"
                                 class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all">
+                            @error('nama') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">NIM</label>
@@ -102,23 +104,31 @@
 
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">Email</label>
-                        <input type="email" name="email" required
-                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all">
+                        <input type="email" name="email" value="{{ old('email') }}" required
+                            class="w-full bg-slate-50 border @error('email') border-rose-500 @else border-slate-200 @enderror rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all">
+                        
+                        @error('email')
+                            <p class="text-rose-500 text-xs mt-1 font-medium">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {{-- Bagian Fakultas --}}
                         <div>
                             <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">Fakultas</label>
                             <input type="text" name="fakultas" required placeholder="Contoh: Teknik"
                                 oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')"  
                                 class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all">
+                            @error('fakultas') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
+                        {{-- Bagian Prodi --}}
                         <div>
                             <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">Prodi</label>
                             <input type="text" name="prodi" required
                                 placeholder="Contoh: Informatika"
                                 oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')"  
                                 class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all">
+                            @error('prodi') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
                     </div>
 

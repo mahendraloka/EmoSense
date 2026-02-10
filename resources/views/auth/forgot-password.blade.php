@@ -32,7 +32,7 @@
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Alamat Email</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus 
                         class="w-full px-4 py-3 rounded-xl border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-150 ease-in-out bg-gray-50"
-                        placeholder="nama@email.com">
+                        placeholder="nama@gmail.com">
                     
                     @error('email')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

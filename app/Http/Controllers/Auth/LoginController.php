@@ -20,22 +20,24 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::guard('admin')->attempt($request->only('email','password'))) {
+        $credentials = $request->only('email', 'password');
+
+        // Coba login sebagai Mahasiswa (Prioritas utama EmoSense)
+        if (Auth::guard('mahasiswa')->attempt($credentials)) {
             $request->session()->regenerate();
-            $request->session()->regenerateToken();
-            return redirect('/admin/dashboard');
+            return redirect()->intended('/mahasiswa/home');
         }
 
-        if (Auth::guard('psikolog')->attempt($request->only('email','password'))) {
+        // Coba login sebagai Admin
+        if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-            $request->session()->regenerateToken();
-            return redirect('/psikolog/dashboard');
+            return redirect()->intended('/admin/dashboard');
         }
 
-        if (Auth::guard('mahasiswa')->attempt($request->only('email','password'))) {
+        // Coba login sebagai Psikolog
+        if (Auth::guard('psikolog')->attempt($credentials)) {
             $request->session()->regenerate();
-            $request->session()->regenerateToken();
-            return redirect('/mahasiswa/home');
+            return redirect()->intended('/psikolog/dashboard');
         }
 
         return back()->withErrors(['email' => 'Email atau password salah']);

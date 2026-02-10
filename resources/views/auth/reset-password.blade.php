@@ -31,7 +31,7 @@
 
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Alamat Email</label>
-                    <input id="email" type="email" name="email" value="{{ $email ?? old('email') }}" required readonly
+                    <input id="email" type="email" name="email" value="{{ request()->email ?? $email }}" required readonly
                         class="w-full px-4 py-3 rounded-xl border-gray-200 bg-gray-100 text-gray-500 cursor-not-allowed text-sm focus:ring-0"
                         placeholder="nama@email.com">
                     @error('email')

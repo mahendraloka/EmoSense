@@ -136,12 +136,13 @@ Route::middleware(['auth:psikolog'])->prefix('psikolog')->name('psikolog.')->gro
 });
 
 // Reset password mahasiswa
+// 1. Tampilan Form Lupa Password (Tetap)
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->middleware('guest')->name('password.request');
 
-Route::post('/forgot-password', function (Request $request) {
-
+// 2. Proses Kirim Link ke Email (Tetap)
+Route::post('/forgot-password', function (Illuminate\Http\Request $request) {
     $request->validate([
         'email' => 'required|email|exists:mahasiswa,email'
     ], [
@@ -155,17 +156,19 @@ Route::post('/forgot-password', function (Request $request) {
     return $status === Password::RESET_LINK_SENT
         ? back()->with('status', 'Link reset password telah dikirim ke email.')
         : back()->withErrors(['email' => 'Gagal mengirim email reset.']);
-
 })->middleware('guest')->name('password.email');
 
-
-Route::get('/reset-password/{token}', function (string $token) {
-    return view('auth.reset-password', ['token' => $token]);
+// 3. PERBAIKAN: Menampilkan Form Reset Password dengan menangkap Email dari URL
+Route::get('/reset-password/{token}', function (Illuminate\Http\Request $request, string $token) {
+    // Kita perlu menangkap 'email' dari request agar bisa di-passing ke view
+    return view('auth.reset-password', [
+        'token' => $token,
+        'email' => $request->email // Mengambil email dari ?email=... di URL
+    ]);
 })->middleware('guest')->name('password.reset');
 
-
-Route::post('/reset-password', function (Request $request) {
-
+// 4. Proses Update Password Baru (Tetap)
+Route::post('/reset-password', function (Illuminate\Http\Request $request) {
     $request->validate([
         'token' => 'required',
         'email' => 'required|email|exists:mahasiswa,email',
@@ -184,6 +187,5 @@ Route::post('/reset-password', function (Request $request) {
     return $status === Password::PASSWORD_RESET
         ? redirect('/login')->with('success', 'Password berhasil direset. Silakan login.')
         : back()->withErrors(['email' => 'Token reset tidak valid atau kadaluarsa.']);
-
 })->middleware('guest')->name('password.update');
 
