@@ -104,6 +104,12 @@
                                 </svg>
                             </button>
                         </div>
+                        <div class="text-right mt-2">
+                            <a href="{{ route('password.request') }}"
+                               class="text-sm text-blue-600 hover:text-blue-700 font-semibold">
+                                Lupa password?
+                            </a>
+                        </div>
                     </div>
 
                     <button type="submit"

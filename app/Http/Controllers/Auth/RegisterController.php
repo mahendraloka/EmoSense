@@ -17,13 +17,19 @@ class RegisterController extends Controller
     public function registerProcess(Request $request)
     {
         $request->validate([
-            'nama'     => 'required',
+            'nama'     => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'nim'      => 'required|unique:mahasiswa',
             'email'    => 'required|email|unique:mahasiswa',
-            'fakultas' => 'required',
-            'prodi'    => 'required',
+            'fakultas' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'prodi'    => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'password' => 'required|min:6',
-        ]);
+        ],
+        [
+            'nama.regex'     => 'Nama lengkap hanya boleh berisi huruf dan spasi.',
+            'fakultas.regex' => 'Fakultas hanya boleh berisi huruf dan spasi.',
+            'prodi.regex'    => 'Program studi hanya boleh berisi huruf dan spasi.',
+        ]
+        );
 
         Mahasiswa::create([
             'nama'     => $request->nama,

@@ -73,7 +73,6 @@
                             @if($mhs->moodTerakhir)
                                 @php
                                     // Map berdasarkan tingkat_mood (asumsi 1: Sangat Sedih, 5: Sangat Senang)
-                                    // Sesuaikan key di bawah dengan isi kolom 'tingkat_mood' di database Anda
                                     $moodData = [
                                         'Sangat Senang' => ['emoji' => '😄', 'color' => 'text-green-500', 'bg' => 'bg-green-50'],
                                         'Senang'        => ['emoji' => '🙂', 'color' => 'text-emerald-500', 'bg' => 'bg-emerald-50'],

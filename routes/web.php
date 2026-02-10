@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\MoodTrackerController;
@@ -132,4 +135,55 @@ Route::middleware(['auth:psikolog'])->prefix('psikolog')->name('psikolog.')->gro
         ->name('profile.update');
 });
 
+// Reset password mahasiswa
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
+
+Route::post('/forgot-password', function (Request $request) {
+
+    $request->validate([
+        'email' => 'required|email|exists:mahasiswa,email'
+    ], [
+        'email.exists' => 'Email tidak terdaftar sebagai mahasiswa.'
+    ]);
+
+    $status = Password::broker('mahasiswa')->sendResetLink(
+        $request->only('email')
+    );
+
+    return $status === Password::RESET_LINK_SENT
+        ? back()->with('status', 'Link reset password telah dikirim ke email.')
+        : back()->withErrors(['email' => 'Gagal mengirim email reset.']);
+
+})->middleware('guest')->name('password.email');
+
+
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
+
+
+Route::post('/reset-password', function (Request $request) {
+
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email|exists:mahasiswa,email',
+        'password' => 'required|min:6|confirmed',
+    ]);
+
+    $status = Password::broker('mahasiswa')->reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function ($user, $password) {
+            $user->forceFill([
+                'password' => Hash::make($password)
+            ])->save();
+        }
+    );
+
+    return $status === Password::PASSWORD_RESET
+        ? redirect('/login')->with('success', 'Password berhasil direset. Silakan login.')
+        : back()->withErrors(['email' => 'Token reset tidak valid atau kadaluarsa.']);
+
+})->middleware('guest')->name('password.update');
 

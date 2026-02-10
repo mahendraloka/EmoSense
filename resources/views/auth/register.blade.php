@@ -89,6 +89,8 @@
                         <div>
                             <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">Nama Lengkap</label>
                             <input type="text" name="nama" required
+                                placeholder="Contoh: Jhon Doe"
+                                oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')"
                                 class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all">
                         </div>
                         <div>
@@ -108,11 +110,14 @@
                         <div>
                             <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">Fakultas</label>
                             <input type="text" name="fakultas" required placeholder="Contoh: Teknik"
+                                oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')"  
                                 class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">Prodi</label>
                             <input type="text" name="prodi" required
+                                placeholder="Contoh: Informatika"
+                                oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')"  
                                 class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all">
                         </div>
                     </div>

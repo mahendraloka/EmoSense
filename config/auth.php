@@ -35,4 +35,29 @@ return [
             'model' => App\Models\Admin::class,
         ],
     ],
+
+    'passwords' => [
+
+        'mahasiswa' => [
+            'provider' => 'mahasiswas',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'psikolog' => [
+            'provider' => 'psikologs',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'admin' => [
+            'provider' => 'admins',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+    ],
 ];
